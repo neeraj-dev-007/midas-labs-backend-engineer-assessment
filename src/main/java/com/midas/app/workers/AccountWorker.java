@@ -1,10 +1,11 @@
 package com.midas.app.workers;
 
-import com.midas.app.activities.AccountActivityImpl;
+import com.midas.app.activities.AccountActivity;
 import com.midas.app.workflows.CreateAccountWorkflowImpl;
 import com.midas.app.workflows.UpdateAccountWorkflowImpl;
 import io.temporal.client.WorkflowClient;
 import io.temporal.serviceclient.WorkflowServiceStubs;
+import io.temporal.serviceclient.WorkflowServiceStubsOptions;
 import io.temporal.worker.Worker;
 import io.temporal.worker.WorkerFactory;
 import jakarta.annotation.PostConstruct;
@@ -13,11 +14,11 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AccountWorker {
-  @Autowired private AccountActivityImpl accountActivity;
+  @Autowired private AccountActivity accountActivity;
 
   @PostConstruct
   public void accountWorker() {
-    WorkflowServiceStubs service = WorkflowServiceStubs.newLocalServiceStubs();
+    WorkflowServiceStubs service = WorkflowServiceStubs.newServiceStubs(  WorkflowServiceStubsOptions.newBuilder().setTarget("127.0.0.1:7233").build());
 
     WorkflowClient client = WorkflowClient.newInstance(service);
 
