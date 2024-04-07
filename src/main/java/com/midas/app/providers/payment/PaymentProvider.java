@@ -15,4 +15,13 @@ public interface PaymentProvider {
    * @return Account
    */
   Account createAccount(CreateAccount details) throws ApiException;
+
+  /**
+   * updateAccount creates a new account in the payment provider.
+   *
+   * @param details is the details of the account to be created.
+   * @param accountId is the accountId of the account to be updated.
+   * @return Account
+   */
+  Account updateAccount(CreateAccount details, String accountId) throws ApiException;
 }

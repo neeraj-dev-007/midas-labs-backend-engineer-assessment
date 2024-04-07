@@ -6,13 +6,17 @@ import com.midas.app.services.AccountService;
 import com.midas.generated.api.AccountsApi;
 import com.midas.generated.model.AccountDto;
 import com.midas.generated.model.CreateAccountDto;
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ReflectionUtils;
 
 @Controller
 @RequiredArgsConstructor
@@ -63,8 +67,22 @@ public class AccountController implements AccountsApi {
    * @param accountId User accountId (required)
    * @return User account updated (status code 200)
    */
-  //  @Override
-  //  public ResponseEntity<AccountDto> updateUserAccount(UUID accountId) {
-  //    return null;
-  //  }
+  @Override
+  public ResponseEntity<AccountDto> updateUserAccount(
+      UUID accountId, Map<String, Object> updateAccount) {
+    logger.info("Updating account for user with id: {}", accountId);
+
+    var account = accountService.getAccountById(accountId);
+
+    updateAccount.forEach(
+        (key, value) -> {
+          Field field = ReflectionUtils.findField(Account.class, key);
+          field.setAccessible(true);
+          ReflectionUtils.setField(field, account, value);
+        });
+
+    var updatedAccount = accountService.updateAccount(account);
+
+    return new ResponseEntity<>(Mapper.toAccountDto(updatedAccount), HttpStatus.CREATED);
+  }
 }

@@ -2,6 +2,7 @@ package com.midas.app.workers;
 
 import com.midas.app.activities.AccountActivityImpl;
 import com.midas.app.workflows.CreateAccountWorkflowImpl;
+import com.midas.app.workflows.UpdateAccountWorkflowImpl;
 import io.temporal.client.WorkflowClient;
 import io.temporal.serviceclient.WorkflowServiceStubs;
 import io.temporal.worker.Worker;
@@ -15,18 +16,24 @@ public class AccountWorker {
   @Autowired private AccountActivityImpl accountActivity;
 
   @PostConstruct
-  public void createWorker() {
+  public void accountWorker() {
     WorkflowServiceStubs service = WorkflowServiceStubs.newLocalServiceStubs();
 
     WorkflowClient client = WorkflowClient.newInstance(service);
 
     WorkerFactory factory = WorkerFactory.newInstance(client);
 
-    Worker worker = factory.newWorker("create-account-workflow");
+    Worker createWorker = factory.newWorker("create-account-workflow");
 
-    worker.registerWorkflowImplementationTypes(CreateAccountWorkflowImpl.class);
+    Worker updateWorker = factory.newWorker("update-account-workflow");
 
-    worker.registerActivitiesImplementations(accountActivity);
+    createWorker.registerWorkflowImplementationTypes(CreateAccountWorkflowImpl.class);
+
+    createWorker.registerActivitiesImplementations(accountActivity);
+
+    updateWorker.registerWorkflowImplementationTypes(UpdateAccountWorkflowImpl.class);
+
+    updateWorker.registerActivitiesImplementations(accountActivity);
 
     factory.start();
   }

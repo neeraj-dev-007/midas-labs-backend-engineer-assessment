@@ -23,4 +23,22 @@ public interface AccountActivity {
    */
   @ActivityMethod
   Account createPaymentAccount(Account account);
+
+  /**
+   * updateAccount updates an account in the data store.
+   *
+   * @param account is the account to be updated
+   * @return Account
+   */
+  @ActivityMethod
+  Account updateAccount(Account account);
+
+  /**
+   * updatePaymentAccount updates a payment account in the system or provider.
+   *
+   * @param account is the account to be updated
+   * @return Account
+   */
+  @ActivityMethod
+  Account updatePaymentAccount(Account account);
 }

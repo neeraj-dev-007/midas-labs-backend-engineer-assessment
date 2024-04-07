@@ -20,3 +20,12 @@ components:
         default: 10
         maximum: 100
         minimum: 1
+
+    accountId:
+      in: path
+      name: accountId
+      description: "Account Id"
+      required: true
+      schema:
+        type: string
+        format: uuid

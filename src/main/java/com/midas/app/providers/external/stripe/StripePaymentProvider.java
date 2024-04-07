@@ -9,6 +9,7 @@ import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Customer;
 import com.stripe.param.CustomerCreateParams;
+import com.stripe.param.CustomerUpdateParams;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -52,6 +53,37 @@ public class StripePaymentProvider implements PaymentProvider {
               .build();
 
       Customer customer = Customer.create(customerCreateParams);
+
+      return Account.builder()
+          .firstName(details.getFirstName())
+          .lastName(details.getLastName())
+          .email(customer.getEmail())
+          .providerType(this.providerName())
+          .providerId(customer.getId())
+          .build();
+    } catch (StripeException e) {
+      throw new ApiException(HttpStatus.valueOf((Integer) e.getStatusCode()), e.getMessage());
+    }
+  }
+
+  /**
+   * updateAccount updates account in the payment provider.
+   *
+   * @param details is the details of the account to be updated.
+   * @return Account
+   */
+  @Override
+  public Account updateAccount(CreateAccount details, String accountId) throws ApiException {
+    try {
+      Customer customer = Customer.retrieve(accountId);
+
+      CustomerUpdateParams customerUpdateParams =
+          CustomerUpdateParams.builder()
+              .setName(details.getFirstName() + " " + details.getLastName())
+              .setEmail(details.getEmail())
+              .build();
+
+      Customer updatedCustomer = customer.update(customerUpdateParams);
 
       return Account.builder()
           .firstName(details.getFirstName())

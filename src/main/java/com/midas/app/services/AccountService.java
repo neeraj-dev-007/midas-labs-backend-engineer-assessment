@@ -2,6 +2,7 @@ package com.midas.app.services;
 
 import com.midas.app.models.Account;
 import java.util.List;
+import java.util.UUID;
 
 public interface AccountService {
   /**
@@ -18,4 +19,19 @@ public interface AccountService {
    * @return List<Account>
    */
   List<Account> getAccounts();
+
+  /**
+   * getAccountById returns the details of account with given Id
+   *
+   * @return Account
+   */
+  Account getAccountById(UUID id);
+
+  /**
+   * updateAccount updates account in the system or provider.
+   *
+   * @param details is the details of the account to be updated.
+   * @return Account
+   */
+  Account updateAccount(Account details);
 }
