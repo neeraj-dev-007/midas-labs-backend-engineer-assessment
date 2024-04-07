@@ -22,7 +22,7 @@ public class AccountController implements AccountsApi {
 
   /**
    * POST /accounts : Create a new user account Creates a new user account with the given details
-   * and attaches a supported payment provider such as &#39;stripe&#39;.
+   * and attaches a supported payment provider such as stripe;.
    *
    * @param createAccountDto User account details (required)
    * @return User account created (status code 201)
@@ -56,4 +56,15 @@ public class AccountController implements AccountsApi {
 
     return new ResponseEntity<>(accountsDto, HttpStatus.OK);
   }
+
+  /**
+   * PATCH /accounts/{accountId} : Get updated user account.
+   *
+   * @param accountId User accountId (required)
+   * @return User account updated (status code 200)
+   */
+  //  @Override
+  //  public ResponseEntity<AccountDto> updateUserAccount(UUID accountId) {
+  //    return null;
+  //  }
 }

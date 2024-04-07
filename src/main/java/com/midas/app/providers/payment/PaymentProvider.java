@@ -1,10 +1,12 @@
 package com.midas.app.providers.payment;
 
+import com.midas.app.exceptions.ApiException;
 import com.midas.app.models.Account;
+import com.midas.app.models.ProviderType;
 
 public interface PaymentProvider {
   /** providerName is the name of the payment provider */
-  String providerName();
+  ProviderType providerName();
 
   /**
    * createAccount creates a new account in the payment provider.
@@ -12,5 +14,5 @@ public interface PaymentProvider {
    * @param details is the details of the account to be created.
    * @return Account
    */
-  Account createAccount(CreateAccount details);
+  Account createAccount(CreateAccount details) throws ApiException;
 }

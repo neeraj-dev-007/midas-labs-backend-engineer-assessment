@@ -1,12 +1,20 @@
 package com.midas.app.providers.external.stripe;
 
+import com.midas.app.exceptions.ApiException;
 import com.midas.app.models.Account;
+import com.midas.app.models.ProviderType;
 import com.midas.app.providers.payment.CreateAccount;
 import com.midas.app.providers.payment.PaymentProvider;
+import com.stripe.Stripe;
+import com.stripe.exception.StripeException;
+import com.stripe.model.Customer;
+import com.stripe.param.CustomerCreateParams;
+import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,10 +25,15 @@ public class StripePaymentProvider implements PaymentProvider {
 
   private final StripeConfiguration configuration;
 
+  @PostConstruct
+  public void init() {
+    Stripe.apiKey = configuration.getApiKey();
+  }
+
   /** providerName is the name of the payment provider */
   @Override
-  public String providerName() {
-    return "stripe";
+  public ProviderType providerName() {
+    return ProviderType.stripe;
   }
 
   /**
@@ -30,7 +43,25 @@ public class StripePaymentProvider implements PaymentProvider {
    * @return Account
    */
   @Override
-  public Account createAccount(CreateAccount details) {
-    throw new UnsupportedOperationException("Not implemented");
+  public Account createAccount(CreateAccount details) throws ApiException {
+    try {
+      CustomerCreateParams customerCreateParams =
+          CustomerCreateParams.builder()
+              .setName(details.getFirstName() + " " + details.getLastName())
+              .setEmail(details.getEmail())
+              .build();
+
+      Customer customer = Customer.create(customerCreateParams);
+
+      return Account.builder()
+          .firstName(details.getFirstName())
+          .lastName(details.getLastName())
+          .email(customer.getEmail())
+          .providerType(this.providerName())
+          .providerId(customer.getId())
+          .build();
+    } catch (StripeException e) {
+      throw new ApiException(HttpStatus.valueOf((Integer) e.getStatusCode()), e.getMessage());
+    }
   }
 }
