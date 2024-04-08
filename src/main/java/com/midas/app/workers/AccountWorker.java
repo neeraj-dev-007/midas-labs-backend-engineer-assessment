@@ -18,7 +18,7 @@ public class AccountWorker {
 
   @PostConstruct
   public void accountWorker() {
-    WorkflowServiceStubs service = WorkflowServiceStubs.newServiceStubs(  WorkflowServiceStubsOptions.newBuilder().setTarget("127.0.0.1:7233").build());
+    WorkflowServiceStubs service = WorkflowServiceStubs.newLocalServiceStubs();
 
     WorkflowClient client = WorkflowClient.newInstance(service);
 

@@ -7,20 +7,18 @@ services:
       - 'POSTGRES_PASSWORD=secret'
       - 'POSTGRES_USER=myuser'
     ports:
-      - 5432
-    network_mode: host
-  backend:
-    build: .
-    container_name: backend_container
-    ports:
-      - 8080
-    environment:
-      spring_datasource_url: jdbc:postgresql://localhost:5432/mydatabase
-      spring_datasource_username: myuser
-      spring_datasource_password: secret
-      spring_temporal_connection_target: local
-      spring_temporal_workers_auto_discovery_packages: com.midas
-    depends_on:
-      - postgres
-    restart: always
-    network_mode: host
+      - 5432:5432
+#  backend:
+#    build: .
+#    container_name: backend_container
+#    ports:
+#      - 8080:8080
+#    environment:
+#      spring_datasource_url: jdbc:postgresql://postgresql:5432/mydatabase
+#      spring_datasource_username: myuser
+#      spring_datasource_password: secret
+#      spring_temporal_connection_target: local
+#      spring_temporal_workers_auto_discovery_packages: com.midas
+#    depends_on:
+#      - postgres
+#    restart: always
