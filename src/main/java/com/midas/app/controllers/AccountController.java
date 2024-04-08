@@ -65,6 +65,7 @@ public class AccountController implements AccountsApi {
    * PATCH /accounts/{accountId} : Get updated user account.
    *
    * @param accountId User accountId (required)
+   * @param updateAccount Fields and value that need to be updated
    * @return User account updated (status code 200)
    */
   @Override

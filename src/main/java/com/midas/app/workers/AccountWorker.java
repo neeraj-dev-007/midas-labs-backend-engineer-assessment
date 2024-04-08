@@ -5,7 +5,6 @@ import com.midas.app.workflows.CreateAccountWorkflowImpl;
 import com.midas.app.workflows.UpdateAccountWorkflowImpl;
 import io.temporal.client.WorkflowClient;
 import io.temporal.serviceclient.WorkflowServiceStubs;
-import io.temporal.serviceclient.WorkflowServiceStubsOptions;
 import io.temporal.worker.Worker;
 import io.temporal.worker.WorkerFactory;
 import jakarta.annotation.PostConstruct;

@@ -11,7 +11,7 @@ public interface UpdateAccountWorkflow {
   /**
    * updateAccount updates account in the system or provider.
    *
-   * @param details is the details of the account to be created.
+   * @param details is the details of the account to be updated.
    * @return Account
    */
   @WorkflowMethod

@@ -15,7 +15,7 @@ This repository contains a pre-existing Spring Boot Application developed with J
 For detailed instructions on setting up the project, please refer to the following section.
 
 
-## Setup Instructions 
+## Setup Instructions
 
 To run the application you would require:
 
@@ -36,7 +36,7 @@ and then run the application using the following command or using your IDE.
 ```
 
 
-## Implementation Approach and Assumptions 
+## Implementation Approach and Assumptions
 
 
 

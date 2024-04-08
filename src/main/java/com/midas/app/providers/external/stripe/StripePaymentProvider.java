@@ -70,6 +70,7 @@ public class StripePaymentProvider implements PaymentProvider {
    * updateAccount updates account in the payment provider.
    *
    * @param details is the details of the account to be updated.
+   * @param accountId is the providerId of account to be updated.
    * @return Account
    */
   @Override
