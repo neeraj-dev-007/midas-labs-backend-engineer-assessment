@@ -55,7 +55,9 @@ public class AccountActivityImpl implements AccountActivity {
     details.setEmail(account.getEmail());
     try {
       if (account.getProviderType().equals(ProviderType.stripe)) {
-        return stripePaymentProvider.updateAccount(details, account.getProviderId());
+        var updatedAccount = stripePaymentProvider.updateAccount(details, account.getProviderId());
+        updatedAccount.setId(account.getId());
+        return updatedAccount;
       }
       return null;
     } catch (ApiException e) {
