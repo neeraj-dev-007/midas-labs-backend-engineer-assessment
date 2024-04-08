@@ -1,62 +1,27 @@
-# Getting Started
+# Introduction
 
-**IMPORTANT: Do not send pull requests to this repository. This is a template repository and is not used for grading. Any pull requests will be closed and ignored.**
+Welcome to the Midas Labs Backend Engineer Assessment repository! This project is part of the assessment process for backend engineers at Midas Labs. It is forked from the original assessment repository to develop and showcase the required skills.
 
-## Introduction
+This repository contains a pre-existing Spring Boot Application developed with Java 21 and leveraging the Temporal Workflow Engine for orchestrating business logic. The main task involves integrating the Stripe payment processing service to manage customer data upon user signup.
 
-If you are reading this, you are probably have received this project as a coding challenge. Please read the instructions
-carefully and follow the steps below to get started.
 
-## Setup
+## Tasks Completed
 
-### Pre-requisities
+- Integrated the Stripe payment processing service into the Spring Boot Application, facilitating seamless handling of customer transactions.
+- Implemented temporal workflows, activities, and workers to execute essential tasks, including customer creation and updates, ensuring efficient business logic orchestration.
+- Created a multi-stage Dockerfile to streamline the deployment process, incorporating build and run stages for efficient containerization.
+- Updated the compose.yaml file to align with Docker deployment requirements.
+
+For detailed instructions on setting up the project, please refer to the following section.
+
+
+## Setup Instructions 
 
 To run the application you would require:
 
-- [Java](https://www.azul.com/downloads/#zulu)
-- [Temporal](https://docs.temporal.io/cli#install)
-- [Docker](https://docs.docker.com/get-docker/)
-- [Stripe API Keys](https://stripe.com/docs/keys)
-
-### On macOS:
-
-First, you need to install Java 21 or later. You can download it from [Azul](https://www.azul.com/downloads/#zulu) or
-use [SDKMAN](https://sdkman.io/).
-
-```sh
-brew install --cask zulu21
-```
-
-You can install Temporal using Homebrew
-
-```sh
-brew install temporal
-```
-
-or visit [Temporal Installation](https://docs.temporal.io/cli#install) for more information.
-
-You can install Docker using Homebrew
-
-```sh
-brew install docker
-```
-
-or visit [Docker Installation](https://docs.docker.com/get-docker/) for more information.
-
-### Other platforms
-
-Please check the official documentation for the installation of Java, Temporal, and Docker for your platform.
-
-### Stripe API Keys
-
-Sign up for a Stripe account and get your API keys from the [Stripe Dashboard](https://dashboard.stripe.com/apikeys).
-Then in `application.properties` file add the following line with your secret key.
-
-```properties
-stripe.api-key=sk_test_51J3j
-```
-
-## Run
+- Java
+- Temporal
+- Docker
 
 You are required to first start the temporal server using the following command
 
@@ -70,37 +35,21 @@ and then run the application using the following command or using your IDE.
 ./gradlew bootRun
 ```
 
-### Other commands
 
-#### Lint
-To run lint checks, use the following command
+## Implementation Approach and Assumptions 
 
-```sh
-./gradlew sonarlintMain
-```
 
-#### Code Formatting
-To format the code, use the following command
 
-```sh
-./gradlew spotlessApply
-```
 
-## Guides
+## Code Walkthrough
 
-The following guides illustrate how to use some features concretely:
+[Code Walkthrough]()
+
+
+## References
 
 - [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
 - [Temporal Quick Start](https://docs.temporal.io/docs/quick-start)
 - [Temporal Java SDK Quick Guide](https://docs.temporal.io/dev-guide/java)
 - [Stripe Quick Start](https://stripe.com/docs/quickstart)
 - [Stripe Java SDK](https://stripe.com/docs/api/java)
-
-### Docker Compose support
-
-This project contains a Docker Compose file named `compose.yaml`.
-In this file, the following services have been defined:
-
-- postgres: [`postgres:latest`](https://hub.docker.com/_/postgres)
-
-Please review the tags of the used images and set them to the same as you're running in production.
